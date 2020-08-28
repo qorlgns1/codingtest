@@ -1,0 +1,66 @@
+문제 설명
+0 또는 양의 정수가 주어졌을 때, 정수를 이어 붙여 만들 수 있는 가장 큰 수를 알아내 주세요.
+
+예를 들어, 주어진 정수가 [6, 10, 2]라면 [6102, 6210, 1062, 1026, 2610, 2106]를 만들 수 있고, 이중 가장 큰 수는 6210입니다.
+
+0 또는 양의 정수가 담긴 배열 numbers가 매개변수로 주어질 때, 순서를 재배치하여 만들 수 있는 가장 큰 수를 문자열로 바꾸어 return 하도록 solution 함수를 작성해주세요.
+
+제한 사항
+numbers의 길이는 1 이상 100,000 이하입니다.
+numbers의 원소는 0 이상 1,000 이하입니다.
+정답이 너무 클 수 있으니 문자열로 바꾸어 return 합니다.
+입출력 예
+*예제는 내 풀이과정에 있음
+
+
+import java.util.Arrays;
+import java.util.Comparator;
+
+public class 가장큰수2 {
+
+	public String solution(int[] numbers) {
+		String answer = "";
+		
+		String[] sorted = new String[numbers.length];
+		for (int i = 0; i < numbers.length; i++) {
+			sorted[i] = "" + numbers[i];
+		}
+		System.out.println("정렬 전 배열" + Arrays.toString(sorted));
+		
+		Arrays.sort(sorted, new Comparator<String>() {
+			@Override
+			public int compare(String o1, String o2) {
+				System.out.println("정렬중 "+"o1 : " + o1+" |o2 : " + o2 + " |o2+o1 : " +(o2+o1) +" |o1+o2 : " +(o1+o2) +"   |(o2+o1).compareTo(o1+o2) : " + (o2+o1).compareTo(o1+o2));
+				System.out.println(sorted[0]+" "+sorted[1]+" "+sorted[2]+" "+sorted[3]+" "+sorted[4]+" ");
+				return (o2+o1).compareTo(o1+o2);
+			}
+		});
+		
+		System.out.println("처음 정렬된 배열" + Arrays.toString(sorted));
+		
+		if(sorted[0].startsWith("0")) { 
+			answer += "0";
+		} else {
+			for(int j=0; j<sorted.length; j++) {
+				answer += sorted[j];
+			}
+		}
+		
+		System.out.println("answer : " + answer);
+		return answer;
+	}
+
+	public static void main(String[] args) {
+
+		가장큰수2 bignumber = new 가장큰수2();
+		int[] numbers = { 6, 10, 11, 2, 0 };
+		int[] numbers1 = { 3, 30, 34, 5, 9 };
+		int[] numbers2 = { 0, 324,5, 3, 4, 501, 505, 511, 899, 50 };
+		String[] numbers12 = { "0", "324", "3", "4", "501", "505", "511", "899", "50" };
+		int[] numbers3 = { 2000,200, 2, 20 };
+		int[] numbers4 = { 1, 2, 3, 4, 5 };
+
+		bignumber.solution(numbers2);
+	}
+
+}
